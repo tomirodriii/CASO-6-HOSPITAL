@@ -108,7 +108,7 @@ def menu_principal(page: ft.Page):
     def ir_tratamientos(e):  Tratamientos(page, menu_principal)
     def ir_historial(e):     HistorialMedico(page, menu_principal)
 
-    # Barra de menús
+    # Barra de menús.
     archivo_menu = ft.PopupMenuButton(
         content=ft.Text("Archivo"),
         items=[
@@ -127,7 +127,7 @@ def menu_principal(page: ft.Page):
         ],
     )
 
-    # Botones de acceso rápido
+    # Botones de acceso rápido.
     page.add(
         ft.Row([archivo_menu, secciones_menu], spacing=10),
         ft.Divider(),

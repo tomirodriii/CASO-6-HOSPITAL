@@ -24,13 +24,5 @@ Para abordar estos problemas, decidimos implementar un Sistema de Gestión de Pa
 basado en una base de datos relacional. Este sistema permitirá al hospital gestionar de manera
 eficiente los registros de los pacientes, programar citas, y mantener un historial médico
 detallado y accesible.
-Fase 1: Diseño de la Base de Datos
-Nuestro primer paso es diseñar la estructura de la base de datos. Nos reunimos con médicos,
-administradores y personal de enfermería para entender sus necesidades y flujos de trabajo. A
-partir de estas reuniones, identificamos las siguientes entidades principales:
- Pacientes: Información personal y médica de los pacientes.
- Médicos: Datos de los médicos y sus especialidades.
- Citas: Registros de citas programadas.
- Tratamientos: Detalles de los tratamientos prescritos.
- Historial Médico: Registro de diagnósticos y tratamientos anteriores.
+
  

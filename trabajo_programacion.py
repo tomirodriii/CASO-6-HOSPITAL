@@ -39,7 +39,7 @@ class Medicos:
         self.page.clean()
         self.volver(self.page)
 
-class EspecialidadesMedicos:                       
+class EspecialidadesMedicos:
     def __init__(self, page: ft.Page, volver):
         self.page = page
         self.volver = volver
@@ -115,14 +115,14 @@ class HistorialMedico:
         self.page.clean()
         self.volver(self.page)
 
-# Menu principal
+# Menú principal
 def menu_principal(page: ft.Page):
     page.clean()
     page.bgcolor = ft.Colors.BLACK
     page.title = "Sistema de Gestión de Pacientes"
     page.theme_mode = ft.ThemeMode.DARK
 
-# Rutas definidas
+    # Rutas definidas
     def ir_pacientes(e):      Pacientes(page, menu_principal)
     def ir_medicos(e):        Medicos(page, menu_principal)
     def ir_citas(e):          Citas(page, menu_principal)
@@ -130,13 +130,13 @@ def menu_principal(page: ft.Page):
     def ir_historial(e):      HistorialMedico(page, menu_principal)
     def ir_especialidades(e): EspecialidadesMedicos(page, menu_principal)
 
-#Los menus desplegables
+    # Los menús desplegables
     seccion_menu1 = ft.PopupMenuButton(
         content=ft.Text("Archivos"),
         items=[
-            ft.PopupMenuItem(content="Pacientes",      icon=ft.Icons.PERSON,            on_click=ir_pacientes),
-            ft.PopupMenuItem(content="Médicos",         icon=ft.Icons.LOCAL_HOSPITAL,    on_click=ir_medicos),
-            ft.PopupMenuItem(content="Especialidades", icon=ft.Icons.MEDICAL_SERVICES,  on_click=ir_especialidades),
+            ft.PopupMenuItem(content="Pacientes",      icon=ft.Icons.PERSON,           on_click=ir_pacientes),
+            ft.PopupMenuItem(content="Médicos",         icon=ft.Icons.LOCAL_HOSPITAL,   on_click=ir_medicos),
+            ft.PopupMenuItem(content="Especialidades", icon=ft.Icons.MEDICAL_SERVICES, on_click=ir_especialidades),
         ],
     )
 
@@ -149,18 +149,19 @@ def menu_principal(page: ft.Page):
         ],
     )
 
-# Agrego todo a la pagina
+    # Agrego todo a la página
     page.add(
-        ft.Row([seccion_menu1, seccion_menu2], spacing=10), 
+        ft.Row([seccion_menu1, seccion_menu2], spacing=10),
         ft.Divider(),
         ft.Text("Acceso rápido", size=13, color=ft.Colors.WHITE54),
+        # Botones de acceso rápido
         ft.Row([
-            ft.IconButton(icon=ft.Icons.HISTORY,            tooltip="Historial Médico", on_click=ir_historial),
-            ft.IconButton(icon=ft.Icons.MEDICATION,         tooltip="Tratamientos",     on_click=ir_tratamientos),
-            ft.IconButton(icon=ft.Icons.PERSON,             tooltip="Pacientes",        on_click=ir_pacientes),
-            ft.IconButton(icon=ft.Icons.LOCAL_HOSPITAL,     tooltip="Médicos",          on_click=ir_medicos),
-            ft.IconButton(icon=ft.Icons.CALENDAR_MONTH,     tooltip="Citas",            on_click=ir_citas),
-            ft.IconButton(icon=ft.Icons.MEDICAL_SERVICES,   tooltip="Especialidades",   on_click=ir_especialidades),
+            ft.IconButton(icon=ft.Icons.HISTORY,          tooltip="Historial Médico", on_click=ir_historial),
+            ft.IconButton(icon=ft.Icons.MEDICATION,       tooltip="Tratamientos",     on_click=ir_tratamientos),
+            ft.IconButton(icon=ft.Icons.PERSON,           tooltip="Pacientes",        on_click=ir_pacientes),
+            ft.IconButton(icon=ft.Icons.LOCAL_HOSPITAL,   tooltip="Médicos",          on_click=ir_medicos),
+            ft.IconButton(icon=ft.Icons.CALENDAR_MONTH,   tooltip="Citas",            on_click=ir_citas),
+            ft.IconButton(icon=ft.Icons.MEDICAL_SERVICES, tooltip="Especialidades",   on_click=ir_especialidades),
         ]),
     )
     page.update()

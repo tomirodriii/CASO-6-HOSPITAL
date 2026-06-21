@@ -1,4 +1,6 @@
 import flet as ft
+import mysql.connector
+from conex import get_patient
 
 # Se hacen las clases de cada apartado para visualizar cada tabla
 class Pacientes:
@@ -8,13 +10,51 @@ class Pacientes:
         self.page.clean()
         self.page.bgcolor = ft.Colors.BLACK
 
+        data = get_patient()  # Obten datos de la base de datos
+        
+        filas = [ ]
+        
+        for paciente in data:
+            filas.append(
+                ft.DataRow(
+                    cells=[
+                        ft.DataCell(ft.Text(str(paciente[0]))),
+                    ft.DataCell(ft.Text(str(paciente[1]))),
+                    ft.DataCell(ft.Text(paciente[2])),
+                    ft.DataCell(ft.Text(paciente[3])),
+                    ft.DataCell(ft.Text(str(paciente[4]))),
+                    ft.DataCell(ft.Text(paciente[5])),
+                    ft.DataCell(ft.Text(str(paciente[6]))),
+                    ft.DataCell(ft.Text(paciente[7]))
+            ]
+        ))
+        table = ft.DataTable(
+    columns=[
+        ft.DataColumn(ft.Text("ID")),
+        ft.DataColumn(ft.Text("DNI")),
+        ft.DataColumn(ft.Text("Nombre")),
+        ft.DataColumn(ft.Text("Apellido")),
+        ft.DataColumn(ft.Text("Nacimiento")),
+        ft.DataColumn(ft.Text("Sexo")),
+        ft.DataColumn(ft.Text("Teléfono")),
+        ft.DataColumn(ft.Text("Estado")),
+    ],
+    rows=filas,
+)
         self.page.add(
-            ft.Text("Pacientes", size=24, color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD),
+            ft.Text(
+                "Pacientes",
+                size=24,
+                color=ft.Colors.WHITE,
+                weight=ft.FontWeight.BOLD
+            ),
             ft.Divider(),
-            ft.Text("Base de datos no conectada.", color=ft.Colors.WHITE70),
+            table,
             ft.ElevatedButton("Volver al Menú", on_click=self.volver_menu),
         )
+        
         self.page.update()
+
 
     def volver_menu(self, e):
         self.page.clean()

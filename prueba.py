@@ -7,4 +7,5 @@ def conectar():
         password="",
         database="6hospi"
     )
+    
     return Bağlantı

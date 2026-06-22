@@ -7,7 +7,8 @@ def conectar():
         password="",
         database="6hospi"
     )
-    
+
+
 def get_patient():
     connection = conectar()
     cursor = connection.cursor()

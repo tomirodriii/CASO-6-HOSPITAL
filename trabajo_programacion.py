@@ -1,6 +1,6 @@
 import flet as ft
 import mysql.connector
-from conex import get_patient
+from pacientedb import get_patient
 
 # Se hacen las clases de cada apartado para visualizar cada tabla.
 class Pacientes:
@@ -196,6 +196,26 @@ class ModificarMedicos:
         self.page.clean()
         self.volver(self.page)
 
+class ModificarCitas:
+    def __init__(self, page: ft.Page, volver):
+        self.page = page
+        self.volver = volver
+        self.page.clean()
+        self.page.bgcolor = ft.Colors.BLACK
+
+        self.page.add(
+            ft.Text("Gestión de Citas", size=24, color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD),
+            ft.Divider(),
+            ft.Text("Base de datos no conectada.", color=ft.Colors.WHITE70),
+            ft.Text("Aca van a ir los formularios para agregar, editar y borrar citas.", color=ft.Colors.WHITE54),
+            ft.ElevatedButton("Volver al Menú", on_click=self.volver_menu),
+        )
+        self.page.update()
+
+    def volver_menu(self, e):
+        self.page.clean()
+        self.volver(self.page)
+
 # Menú principal
 def menu_principal(page: ft.Page):
     page.clean()
@@ -212,6 +232,7 @@ def menu_principal(page: ft.Page):
     def ir_especialidades(e): EspecialidadesMedicos(page, menu_principal)
     def ir_mod_pacientes(e):      ModificarPacientes(page, menu_principal) #Rutas de gestión.
     def ir_mod_medicos(e):        ModificarMedicos(page, menu_principal)
+    def ir_mod_citas(e):          ModificarCitas(page, menu_principal)
 
     # Los menús desplegables.
     seccion_menu1 = ft.PopupMenuButton(
@@ -237,7 +258,8 @@ def menu_principal(page: ft.Page):
         content=ft.Text("Gestión de tablas"),
         items=[
             ft.PopupMenuItem(content="Pacientes",        icon=ft.Icons.PERSON_ADD,        on_click=ir_mod_pacientes),
-            ft.PopupMenuItem(content="Médicos",           icon=ft.Icons.EDIT,              on_click=ir_mod_medicos)
+            ft.PopupMenuItem(content="Médicos",           icon=ft.Icons.EDIT,              on_click=ir_mod_medicos),
+            ft.PopupMenuItem(content="Citas",             icon=ft.Icons.EDIT_CALENDAR,     on_click=ir_mod_citas),
         ],
     )
 

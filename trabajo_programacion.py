@@ -2,7 +2,7 @@ import flet as ft
 import mysql.connector
 from conex import get_patient
 
-# Se hacen las clases de cada apartado para visualizar cada tabla
+# Se hacen las clases de cada apartado para visualizar cada tabla.
 class Pacientes:
     def __init__(self, page: ft.Page, volver):
         self.page = page
@@ -10,7 +10,7 @@ class Pacientes:
         self.page.clean()
         self.page.bgcolor = ft.Colors.BLACK
 
-        data = get_patient()  # Obten datos de la base de datos
+        data = get_patient()  # Obtener datos de bd.
         
         filas = [ ]
         
@@ -155,7 +155,7 @@ class HistorialMedico:
         self.page.clean()
         self.volver(self.page)
 
-# Clases para la gestion de tablas, estas seran las paginas para gestionar las tablas
+# Tablas de gestión de datos, (paciente y médico).
 class ModificarPacientes:
     def __init__(self, page: ft.Page, volver):
         self.page = page
@@ -203,19 +203,17 @@ def menu_principal(page: ft.Page):
     page.title = "Sistema de Gestión de Pacientes"
     page.theme_mode = ft.ThemeMode.DARK
 
-    # Rutas definidas
-    def ir_pacientes(e):      Pacientes(page, menu_principal)
+    # Rutas definidas.
+    def ir_pacientes(e):      Pacientes(page, menu_principal) #Rutas de datos.
     def ir_medicos(e):        Medicos(page, menu_principal)
     def ir_citas(e):          Citas(page, menu_principal)
     def ir_tratamientos(e):   Tratamientos(page, menu_principal)
     def ir_historial(e):      HistorialMedico(page, menu_principal)
     def ir_especialidades(e): EspecialidadesMedicos(page, menu_principal)
-
-    # Rutas nuevas, para la gestion de tablas
-    def ir_mod_pacientes(e):      ModificarPacientes(page, menu_principal)
+    def ir_mod_pacientes(e):      ModificarPacientes(page, menu_principal) #Rutas de gestión.
     def ir_mod_medicos(e):        ModificarMedicos(page, menu_principal)
 
-    # Los menús desplegables
+    # Los menús desplegables.
     seccion_menu1 = ft.PopupMenuButton(
         content=ft.Text("Archivos"),
         items=[
@@ -234,7 +232,7 @@ def menu_principal(page: ft.Page):
         ],
     )
 
-    # Menu desplegable para la administracion de las tablas
+    # Menu desplegable para gestionar tablas.
     seccion_menu3 = ft.PopupMenuButton(
         content=ft.Text("Gestión de tablas"),
         items=[
@@ -243,12 +241,12 @@ def menu_principal(page: ft.Page):
         ],
     )
 
-    # Agrego todo a la página
+    # Agrego todo a la página.
     page.add(
         ft.Row([seccion_menu1, seccion_menu2, seccion_menu3], spacing=10),
         ft.Divider(),
         ft.Text("Acceso rápido", size=13, color=ft.Colors.WHITE54),
-        # Botones de acceso rápido
+        # Botones de acceso rápido.
         ft.Row([
             ft.IconButton(icon=ft.Icons.HISTORY,          tooltip="Historial Médico", on_click=ir_historial),
             ft.IconButton(icon=ft.Icons.MEDICATION,       tooltip="Tratamientos",     on_click=ir_tratamientos),

@@ -18,16 +18,17 @@ class Pacientes:
             filas.append(
                 ft.DataRow(
                     cells=[
-                        ft.DataCell(ft.Text(str(paciente[0]))),
-                    ft.DataCell(ft.Text(str(paciente[1]))),
-                    ft.DataCell(ft.Text(paciente[2])),
-                    ft.DataCell(ft.Text(paciente[3])),
-                    ft.DataCell(ft.Text(str(paciente[4]))),
-                    ft.DataCell(ft.Text(paciente[5])),
-                    ft.DataCell(ft.Text(str(paciente[6]))),
-                    ft.DataCell(ft.Text(paciente[7]))
-            ]
-        ))
+                        ft.DataCell(ft.Text((paciente[0]))),
+                        ft.DataCell(ft.Text((paciente[1]))),
+                        ft.DataCell(ft.Text((paciente[2]))),
+                        ft.DataCell(ft.Text((paciente[3]))),
+                        ft.DataCell(ft.Text((paciente[4]))),
+                        ft.DataCell(ft.Text((paciente[5]))),
+                        ft.DataCell(ft.Text((paciente[6]))),
+                        ft.DataCell(ft.Text((paciente[7])))
+                    ]
+                )
+            )
         table = ft.DataTable(
     columns=[
         ft.DataColumn(ft.Text("ID")),
@@ -238,27 +239,27 @@ def menu_principal(page: ft.Page):
     seccion_menu1 = ft.PopupMenuButton(
         content=ft.Text("Archivos"),
         items=[
-            ft.PopupMenuItem(content="Pacientes", icon=ft.Icons.PERSON, on_click=ir_pacientes),
-            ft.PopupMenuItem(content="Médicos", icon=ft.Icons.LOCAL_HOSPITAL, on_click=ir_medicos),
-            ft.PopupMenuItem(content="Especialidades", icon=ft.Icons.MEDICAL_SERVICES, on_click=ir_especialidades),
+            ft.PopupMenuItem(content=ft.Text("Pacientes"), icon=ft.Icons.PERSON, on_click=ir_pacientes),
+            ft.PopupMenuItem(content=ft.Text("Médicos"), icon=ft.Icons.LOCAL_HOSPITAL, on_click=ir_medicos),
+            ft.PopupMenuItem(content=ft.Text("Especialidades"), icon=ft.Icons.MEDICAL_SERVICES, on_click=ir_especialidades),
         ],
     )
 
     seccion_menu2 = ft.PopupMenuButton(
         content=ft.Text("Administración"),
         items=[
-            ft.PopupMenuItem(content="Citas", icon=ft.Icons.CALENDAR_MONTH, on_click=ir_citas),
-            ft.PopupMenuItem(content="Tratamientos", icon=ft.Icons.MEDICATION, on_click=ir_tratamientos),
-            ft.PopupMenuItem(content="Historial Médico", icon=ft.Icons.HISTORY, on_click=ir_historial),
+            ft.PopupMenuItem(content=ft.Text("Citas"), icon=ft.Icons.CALENDAR_MONTH, on_click=ir_citas),
+            ft.PopupMenuItem(content=ft.Text("Tratamientos"), icon=ft.Icons.MEDICATION, on_click=ir_tratamientos),
+            ft.PopupMenuItem(content=ft.Text("Historial Médico"), icon=ft.Icons.HISTORY, on_click=ir_historial),
         ],
     )
 
     seccion_menu3 = ft.PopupMenuButton(
         content=ft.Text("Gestión de tablas"),
         items=[
-            ft.PopupMenuItem(content="Pacientes", icon=ft.Icons.PERSON_ADD, on_click=ir_mod_pacientes),
-            ft.PopupMenuItem(content="Médicos", icon=ft.Icons.EDIT, on_click=ir_mod_medicos),
-            ft.PopupMenuItem(content="Citas", icon=ft.Icons.EDIT_CALENDAR, on_click=ir_mod_citas),
+            ft.PopupMenuItem(content=ft.Text("Pacientes"), icon=ft.Icons.PERSON_ADD, on_click=ir_mod_pacientes),
+            ft.PopupMenuItem(content=ft.Text("Médicos"), icon=ft.Icons.EDIT, on_click=ir_mod_medicos),
+            ft.PopupMenuItem(content=ft.Text("Citas"), icon=ft.Icons.EDIT_CALENDAR, on_click=ir_mod_citas),
         ],
     )
 

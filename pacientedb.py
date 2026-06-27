@@ -12,14 +12,14 @@ def get_patient():
     connection = conectar()
     cursor = connection.cursor()
     cursor.execute("""
-        SELECT id_paciente, dni, nombre, apellido, fecha_nacimiento, sexo, telefono, estado FROM pacientes
+        SELECT id_paciente, dni, nombre, apellido, fecha_nacimiento, sexo, telefono, fecha_alta, estado FROM pacientes
     """)
     data = cursor.fetchall()
     cursor.close()
     connection.close()
     return data
 
-def add_paciente(nombre, apellido, dni, fecha_nacimiento, sexo, telefono, fecha_alta, estado):
+def add_paciente(nombre, apellido, dni, fecha_nacimiento, sexo, telefono,):
     
     connection = conectar ()
     cursor = connection.cursor()
@@ -33,4 +33,3 @@ def add_paciente(nombre, apellido, dni, fecha_nacimiento, sexo, telefono, fecha_
     connection.commit()
     cursor.close()
     connection.close()
-    

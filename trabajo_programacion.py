@@ -27,7 +27,8 @@ class Pacientes:
                         ft.DataCell(ft.Text((paciente[4]))),
                         ft.DataCell(ft.Text((paciente[5]))),
                         ft.DataCell(ft.Text((paciente[6]))),
-                        ft.DataCell(ft.Text((paciente[7])))
+                        ft.DataCell(ft.Text((paciente[7]))),
+                        ft.DataCell(ft.Text((paciente[8])))
                     ]
                 )
             )
@@ -40,6 +41,7 @@ class Pacientes:
         ft.DataColumn(ft.Text("Nacimiento")),
         ft.DataColumn(ft.Text("Sexo")),
         ft.DataColumn(ft.Text("Teléfono")),
+        ft.DataColumn(ft.Text("Admisión")),
         ft.DataColumn(ft.Text("Estado")),
     ],
     rows=filas,

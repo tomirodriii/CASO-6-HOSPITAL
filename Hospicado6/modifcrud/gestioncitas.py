@@ -11,7 +11,7 @@ class ModificarCitas:
         self.page.add(
             ft.Text("Gestión de Citas", size=24, color=ft.Colors.BLACK, weight=ft.FontWeight.BOLD),
             ft.Divider(),
-            ft.Text("Base de datos no conectada.", color=ft.Colors.BLACK70),
+            ft.Text("Base de datos no conectada.", color=ft.Colors.BLACK),
             ft.Text("Aca van a ir los formularios para agregar, editar y borrar citas.", color=ft.Colors.BLACK54),
             ft.ElevatedButton("Volver al Menú", on_click=self.volver_menu),
         )

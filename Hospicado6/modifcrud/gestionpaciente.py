@@ -1,8 +1,8 @@
 import flet as ft
 import mysql.connector
-from pacientedb import add_paciente
+from pacientedb import( get_patient , add_paciente , update_paciente , delete_paciente)
 from diseñopagina.validaciones import validar_nombre, validar_apellido, validar_dni, validar_telefono, validar_fecha
-
+from diseñopagina.diseño import (header, tarjeta, boton_guardar, boton_limpiar, boton_volver, boton_editar, boton_eliminar, titulo, espacio)
 
 class ModificarPacientes:
     def __init__(self, page: ft.Page, volver):
@@ -10,7 +10,8 @@ class ModificarPacientes:
         self.volver = volver
         self.page.clean()
         self.page.bgcolor = "#F5F9FC"
-
+        self.id_paciente = None  # Almacena el ID del paciente a modificar
+        
         #Campos. 
         self.nombre = ft.TextField(
             label="Nombre",
@@ -69,72 +70,26 @@ class ModificarPacientes:
         )
 
         #  Buttons. 
-
-        boton_guardar = ft.ElevatedButton(
-            "Guardar",
-            icon=ft.Icons.SAVE,
-            bgcolor=ft.Colors.GREEN,
-            color=ft.Colors.WHITE,
-            width=140,
-            on_click=self.adds_paciente,
-        )
-
-        boton_limpiar = ft.ElevatedButton(
-            "Limpiar",
-            icon=ft.Icons.CLEAR,
-            width=140,
-            on_click=self.limpiar_formulario,
-        )
-
-        boton_volver = ft.ElevatedButton(
-            "Volver",
-            icon=ft.Icons.ARROW_BACK,
-            width=140,
-            on_click=self.volver_menu,
-        )
+        self.boton_guardar = boton_guardar(self.save_or_change,)
+        self.boton_limpiar = boton_limpiar(self.limpiar_formulario,)
+        self.boton_volver = boton_volver(self.volver_menu,)
 
         #  HEADER. 
-        header = ft.Container(
-            bgcolor="#1976D2",
-            border_radius=15,
-            padding=20,
-            content=ft.Row(
-                [
-                    ft.Icon(
-                        ft.Icons.PERSON_ADD,
-                        color="white",
-                        size=45,
-                    ),
-                    ft.Column(
-                        [
-                            ft.Text(
-                                "Gestión de Pacientes",
-                                size=24,
-                                weight=ft.FontWeight.BOLD,
-                                color="white",
-                            ),
-                            ft.Text(
-                                "Agregar, modificar y eliminar pacientes",
-                                color="white70",
-                            ),
-                        ]
-                    ),
-                ]
-            ),
+        header_pagina = header(
+            titulo="Gestión de Pacientes",
+            subtitulo="Agregar, modificar y eliminar pacientes",
+            icono=ft.Icons.PERSON_ADD
+        )
+
+        self.tabla = ft.Column(
+            spacing=8,
+            scroll=ft.ScrollMode.AUTO,
+            expand=True,
         )
 
         # FORMULARIO.
-        formulario = ft.Container(
-            width=520,
-            padding=25,
-            bgcolor="white",
-            border_radius=15,
-            shadow=ft.BoxShadow(
-                blur_radius=15,
-                spread_radius=1,
-                color=ft.Colors.BLACK12,
-            ),
-            content=ft.Column(
+        formulario = tarjeta(
+            control=ft.Column(
                 [
                     self.nombre,
                     self.apellido,
@@ -149,12 +104,11 @@ class ModificarPacientes:
                     ),
                     self.sexo,
                     self.telefono,
-
                     ft.Row(
                         [
-                            boton_guardar,
-                            boton_limpiar,
-                            boton_volver,
+                            self.boton_guardar,
+                            self.boton_limpiar,
+                            self.boton_volver,
                         ],
                         alignment=ft.MainAxisAlignment.CENTER,
                         spacing=15,
@@ -162,17 +116,78 @@ class ModificarPacientes:
                 ],
                 spacing=15,
             ),
+            ancho=520
         )
 
         #Interfaz. 
         self.page.add(
-            header,
+            header_pagina,
             ft.Container(height=30),
             ft.Row(
                 [formulario],
                 alignment=ft.MainAxisAlignment.CENTER,
             ),
+            
+            ft.Container(height=30),
+            ft.Text(
+                "Pacientes en lista.",
+                size=20,
+                weight=ft.FontWeight.BOLD,
+            ),
+            ft.Divider(),
+            self.tabla,
         )
+        self.tabla_pacientes()
+        self.page.update()
+
+    def tabla_pacientes(self):
+        data = get_patient()
+        
+        self.tabla.controls.clear()
+
+        self.tabla.controls.append(
+            ft.Container(
+                bgcolor="#1976D2",
+                padding=10,
+                border_radius=10,
+                content=ft.Row(
+                    [
+                        ft.Text("ID", width=40, color="white", weight=ft.FontWeight.BOLD),
+                        ft.Text("DNI", width=100, color="white", weight=ft.FontWeight.BOLD),
+                        ft.Text("Nombre", width=150, color="white", weight=ft.FontWeight.BOLD),
+                        ft.Text("Apellido", width=150, color="white", weight=ft.FontWeight.BOLD),
+                        ft.Text("Nacimiento", width=120, color="white", weight=ft.FontWeight.BOLD),
+                        ft.Text("Sexo", width=50, color="white", weight=ft.FontWeight.BOLD),
+                        ft.Text("Teléfono", width=120, color="white", weight=ft.FontWeight.BOLD),
+                        ft.Text("Acciones", width=90, color="white", weight=ft.FontWeight.BOLD),
+                    ]
+                )
+            )
+        )
+        for paciente in data:
+            self.tabla.controls.append(
+                ft.Row(
+                    [
+                        ft.Text(str(paciente[0]), width=40),
+                        ft.Text(paciente[1], width=100),
+                        ft.Text(paciente[2], width=150),
+                        ft.Text(paciente[3], width=150),
+                        ft.Text(str(paciente[4]), width=120),
+                        ft.Text(paciente[5], width=50),
+                        ft.Text(paciente[6], width=120),
+                        ft.IconButton(
+                            ft.Icons.EDIT,
+                            on_click=lambda _, p=paciente: self.editar_paciente(p),
+                        ),
+                        ft.IconButton(
+                            ft.Icons.DELETE,
+                            icon_color=ft.Colors.RED,
+                            on_click=lambda _, id=paciente[0]: self.eliminar_paciente(id),
+                        ),
+                    ]
+                )
+            )
+
         self.page.update()
 
     def on_date_change(self, e):  # Calendario acción.
@@ -244,6 +259,7 @@ class ModificarPacientes:
 
             self.page.open(snack)
             self.limpiar_formulario()
+            self.tabla_pacientes()
 
         except Exception as ex:
             print("ERROR MYSQL:")
@@ -256,6 +272,100 @@ class ModificarPacientes:
             self.page.open(snack)
         self.page.update()
 
+    def save_or_change(self, e):
+        if self.id_paciente is None:
+            self.adds_paciente(e)
+        else:
+            self.modificar_paciente(e)
+
+    def editar_paciente(self, paciente):
+
+        self.id_paciente = paciente[0]
+
+        self.dni.value = paciente[1]
+        self.nombre.value = paciente[2]
+        self.apellido.value = paciente[3]
+        self.fecha_nacimiento.value = str(paciente[4])
+        self.sexo.value = paciente[5]
+        self.telefono.value = paciente[6]
+
+        self.boton_guardar.text = "Actualizar"
+        self.boton_guardar.icon = ft.Icons.EDIT
+        self.boton_guardar.bgcolor = ft.Colors.BLUE
+
+        self.page.update()
+
+    def modificar_paciente(self, e):
+
+        error = self.validar_datos()
+
+        if error:
+
+            self.page.open(
+                ft.SnackBar(
+                    content=ft.Text(error),
+                    bgcolor=ft.Colors.ORANGE,
+                )
+            )
+
+            return
+
+        try:
+
+            update_paciente(
+                self.id_paciente,
+                self.nombre.value,
+                self.apellido.value,
+                self.dni.value,
+                self.fecha_nacimiento.value,
+                self.sexo.value,
+                self.telefono.value,
+            )
+
+            self.page.open(
+                ft.SnackBar(
+                    content=ft.Text("Paciente actualizado correctamente."),
+                    bgcolor=ft.Colors.GREEN,
+                )
+            )
+
+            self.limpiar_formulario()
+
+            self.tabla_pacientes()
+
+        except Exception as ex:
+
+            self.page.open(
+                ft.SnackBar(
+                    content=ft.Text(str(ex)),
+                    bgcolor=ft.Colors.RED,
+                )
+            )
+
+    def eliminar_paciente(self, id_paciente):
+
+        try:
+
+            delete_paciente(id_paciente)
+
+            self.page.open(
+                ft.SnackBar(
+                    content=ft.Text("Paciente eliminado correctamente."),
+                    bgcolor=ft.Colors.RED,
+                )
+            )
+
+            self.tabla_pacientes()
+
+        except Exception as ex:
+
+            self.page.open(
+                ft.SnackBar(
+                    content=ft.Text(str(ex)),
+                    bgcolor=ft.Colors.RED,
+                )
+            )
+
     def limpiar_formulario(self, e=None):
         self.nombre.value = ""
         self.apellido.value = ""
@@ -263,8 +373,15 @@ class ModificarPacientes:
         self.fecha_nacimiento.value = ""
         self.sexo.value = None
         self.telefono.value = ""
+        
+        
+        self.id_paciente = None
+        
+        self.boton_guardar.text = "Guardar"
+        self.boton_guardar.icon = ft.Icons.SAVE
+        self.boton_guardar.bgcolor = ft.Colors.GREEN
         self.page.update()
-
+        
     def volver_menu(self, e):
         self.page.clean()
         self.volver(self.page)

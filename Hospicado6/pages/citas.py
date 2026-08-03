@@ -11,7 +11,7 @@ class Citas:
         self.page.add(
             ft.Text("Citas", size=24, color=ft.Colors.BLACK, weight=ft.FontWeight.BOLD),
             ft.Divider(),
-            ft.Text("Base de datos no conectada.", color=ft.Colors.BLACK70),
+            ft.Text("Base de datos no conectada.", color=ft.Colors.BLACK),
             ft.ElevatedButton("Volver al Menú", on_click=self.volver_menu),
         )
         self.page.update()

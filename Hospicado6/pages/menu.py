@@ -13,7 +13,7 @@ from modifcrud.gestioncitas import ModificarCitas
 def menu_principal(page: ft.Page):
     page.clean()
     page.bgcolor = "#F5F9FC"
-    page.title = "Sistema de Gestión de Pacientes"
+    page.title = "Sistema de Gestión del Hospital - Homepage."
     page.theme_mode = ft.ThemeMode.LIGHT
 
     # Rutas definidas.
@@ -31,27 +31,27 @@ def menu_principal(page: ft.Page):
     seccion_menu1 = ft.PopupMenuButton(
         content=ft.Text("Archivos"),
         items=[
-            ft.PopupMenuItem(content=ft.Text("Pacientes"), icon=ft.Icons.PERSON, on_click=ir_pacientes),
-            ft.PopupMenuItem(content=ft.Text("Médicos"), icon=ft.Icons.LOCAL_HOSPITAL, on_click=ir_medicos),
-            ft.PopupMenuItem(content=ft.Text("Especialidades"), icon=ft.Icons.MEDICAL_SERVICES, on_click=ir_especialidades),
+            ft.PopupMenuItem(content=ft.Text("Pacientes."), icon=ft.Icons.PERSON, on_click=ir_pacientes),
+            ft.PopupMenuItem(content=ft.Text("Médicos."), icon=ft.Icons.LOCAL_HOSPITAL, on_click=ir_medicos),
+            ft.PopupMenuItem(content=ft.Text("Especialidades."), icon=ft.Icons.MEDICAL_SERVICES, on_click=ir_especialidades),
         ],
     )
 
     seccion_menu2 = ft.PopupMenuButton(
         content=ft.Text("Administración"),
         items=[
-            ft.PopupMenuItem(content=ft.Text("Citas"), icon=ft.Icons.CALENDAR_MONTH, on_click=ir_citas),
-            ft.PopupMenuItem(content=ft.Text("Tratamientos"), icon=ft.Icons.MEDICATION, on_click=ir_tratamientos),
-            ft.PopupMenuItem(content=ft.Text("Historial Médico"), icon=ft.Icons.HISTORY, on_click=ir_historial),
+            ft.PopupMenuItem(content=ft.Text("Citas."), icon=ft.Icons.CALENDAR_MONTH, on_click=ir_citas),
+            ft.PopupMenuItem(content=ft.Text("Tratamientos."), icon=ft.Icons.MEDICATION, on_click=ir_tratamientos),
+            ft.PopupMenuItem(content=ft.Text("Historial Médico."), icon=ft.Icons.HISTORY, on_click=ir_historial),
         ],
     )
 
     seccion_menu3 = ft.PopupMenuButton(
         content=ft.Text("Gestión de tablas"),
         items=[
-            ft.PopupMenuItem(content=ft.Text("Gestión de Pacientes"), icon=ft.Icons.PERSON_ADD, on_click=ir_mod_pacientes),
-            ft.PopupMenuItem(content=ft.Text("Gestión de Médicos"), icon=ft.Icons.EDIT, on_click=ir_mod_medicos),
-            ft.PopupMenuItem(content=ft.Text("Gestión de Citas"), icon=ft.Icons.EDIT_CALENDAR, on_click=ir_mod_citas),
+            ft.PopupMenuItem(content=ft.Text("Gestión de Pacientes."), icon=ft.Icons.PERSON_ADD, on_click=ir_mod_pacientes),
+            ft.PopupMenuItem(content=ft.Text("Gestión de Médicos."), icon=ft.Icons.EDIT, on_click=ir_mod_medicos),
+            ft.PopupMenuItem(content=ft.Text("Gestión de Citas."), icon=ft.Icons.EDIT_CALENDAR, on_click=ir_mod_citas),
         ],
     )
 
@@ -70,13 +70,13 @@ def menu_principal(page: ft.Page):
                 ft.Column(
                     [
                         ft.Text(
-                            "Sistema de Gestión de Pacientes",
+                            "Sistema de Gestión del Hospital.",
                             size=26,
                             weight=ft.FontWeight.BOLD,
                             color="white"
                         ),
                         ft.Text(
-                            "Administración hospitalaria",
+                            "Administración hospitalaria.",
                             color="white70"
                         )
                     ]
@@ -91,13 +91,13 @@ def menu_principal(page: ft.Page):
         content=ft.Column(
             [
                 ft.Text(
-                    "Bienvenido",
+                    "Bienvenido, querido administrador.",
                     size=28,
                     weight=ft.FontWeight.BOLD,
                     color="#263238"
                 ),
                 ft.Text(
-                    "Seleccione una opción para comenzar.",
+                    "Seleccione una fuente para comenzar:",
                     color="#546E7A"
                 )
             ]
@@ -115,7 +115,7 @@ def menu_principal(page: ft.Page):
                     content=ft.Column(
                         [
                             ft.Icon(ft.Icons.PERSON, size=40, color="#1976D2"),
-                            ft.Text("Pacientes", weight=ft.FontWeight.BOLD)
+                            ft.Text("Pacientes.", weight=ft.FontWeight.BOLD)
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER
                     )
@@ -130,7 +130,7 @@ def menu_principal(page: ft.Page):
                     content=ft.Column(
                         [
                             ft.Icon(ft.Icons.LOCAL_HOSPITAL, size=40, color="#1976D2"),
-                            ft.Text("Médicos", weight=ft.FontWeight.BOLD)
+                            ft.Text("Médicos.", weight=ft.FontWeight.BOLD)
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER
                     )
@@ -145,7 +145,7 @@ def menu_principal(page: ft.Page):
                     content=ft.Column(
                         [
                             ft.Icon(ft.Icons.CALENDAR_MONTH, size=40, color="#1976D2"),
-                            ft.Text("Citas", weight=ft.FontWeight.BOLD)
+                            ft.Text("Citas.", weight=ft.FontWeight.BOLD)
                         ],
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER
                     )
@@ -176,7 +176,7 @@ def menu_principal(page: ft.Page):
         ft.Divider(),
 
         ft.Text(
-            "Acceso rápido",
+            "Acceso rápido.",
             size=14,
             weight=ft.FontWeight.BOLD,
             color="#546E7A"
